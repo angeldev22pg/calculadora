@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora 1.18</title>
+    <style>
+        .fila {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .monto, .resultado {
+            margin-right: 10px;
+            padding: 5px;
+        }
+        .boton-copiar {
+            margin-right: 5px;
+            padding: 5px 10px;
+        }
+        .cotejo {
+            color: green;
+            font-weight: bold;
+            font-size: 18px;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora Online (Dividir entre 1.18)</h2>
+
+    <div id="calculadora">
+        <!-- Se crearán las 10 filas dinámicamente -->
+    </div>
+
+    <script>
+        function crearCalculadora() {
+            const contenedor = document.getElementById('calculadora');
+
+            for (let i = 0; i < 10; i++) {
+                const divFila = document.createElement('div');
+                divFila.className = 'fila';
+
+                const inputMonto = document.createElement('input');
+                inputMonto.type = 'number';
+                inputMonto.placeholder = 'Monto';
+                inputMonto.className = 'monto';
+                inputMonto.step = 'any';
+
+                const inputResultado = document.createElement('input');
+                inputResultado.type = 'text';
+                inputResultado.placeholder = 'Resultado';
+                inputResultado.className = 'resultado';
+                inputResultado.readOnly = true;
+
+                const botonCopiar = document.createElement('button');
+                botonCopiar.textContent = 'Copiar';
+                botonCopiar.className = 'boton-copiar';
+
+                const cotejo = document.createElement('span');
+                cotejo.className = 'cotejo';
+                cotejo.textContent = '✔️';
+
+                inputMonto.addEventListener('input', () => {
+                    const resultado = parseFloat(inputMonto.value) / 1.18;
+                    inputResultado.value = isNaN(resultado) ? '' : resultado.toFixed(2);
+
+                    // Al escribir un nuevo monto, ocultamos el cotejo
+                    cotejo.style.visibility = 'hidden';
+                });
+
+                botonCopiar.addEventListener('click', () => {
+                    navigator.clipboard.writeText(inputResultado.value)
+                        .then(() => {
+                            cotejo.style.visibility = 'visible'; // Mostramos el cotejo
+                        });
+                });
+
+                divFila.appendChild(inputMonto);
+                divFila.appendChild(inputResultado);
+                divFila.appendChild(botonCopiar);
+                divFila.appendChild(cotejo);
+
+                contenedor.appendChild(divFila);
+            }
+        }
+
+        crearCalculadora();
+    </script>
+
+</body>
+</html>
