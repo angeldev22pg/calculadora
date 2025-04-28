@@ -62,7 +62,7 @@
 
                 inputMonto.addEventListener('input', () => {
                     const resultado = parseFloat(inputMonto.value) / 1.18;
-                    inputResultado.value = isNaN(resultado) ? '' : resultado.toFixed(2);
+                    inputResultado.value = isNaN(resultado) ? '' : resultado.toFixed(4);
 
                     // Al escribir un nuevo monto, ocultamos el cotejo
                     cotejo.style.visibility = 'hidden';
